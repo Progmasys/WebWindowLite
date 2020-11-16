@@ -9,25 +9,23 @@
     <Authors>Junior</Authors>
     <Company>Progmasys</Company>
     <Product>WebWindowLite</Product>
-    <NativeOutputDir>..\WebWindow.Native\Win32\$(Configuration)\</NativeOutputDir>
-    <IsMacOS>$([MSBuild]::IsOsPlatform('OSX'))</IsMacOS>
-    <NativeAssetRuntimeIdentifier Condition="'$(OS)' == 'Windows_NT'">win-x86</NativeAssetRuntimeIdentifier>
-    <NativeAssetRuntimeIdentifier Condition="'$(OS)' != 'Windows_NT' AND '$(IsMacOS)' != 'true'">linux-x64</NativeAssetRuntimeIdentifier>
-    <NativeAssetRuntimeIdentifier Condition="'$(OS)' != 'Windows_NT' AND '$(IsMacOS)' == 'true'">osx-x64</NativeAssetRuntimeIdentifier>
-  </PropertyGroup>
+    <NativeOutputDir>..\WebWindow.Native\$(Platform)\$(Configuration)\</NativeOutputDir>   
+    <NativeAssetRuntimeIdentifier Condition="'$(OS)' == 'Windows_NT' AND '$(Platform)' == 'Win32'">win-x86</NativeAssetRuntimeIdentifier>
+    <NativeAssetRuntimeIdentifier Condition="'$(OS)' == 'Windows_NT' AND '$(Platform)' == 'x64'">win-x64</NativeAssetRuntimeIdentifier>
+    <NativeAssetRuntimeIdentifier Condition="'$(OS)' != 'Windows_NT'">linux-x64</NativeAssetRuntimeIdentifier>
+  </PropertyGroup>  
 
   <ItemGroup Condition="'$(OS)' == 'Windows_NT' AND '$(Configuration)' == 'Debug'">
     <ProjectReference Include="..\WebWindow.Native\WebWindow.Native.vcxproj" />
   </ItemGroup>
 
   <Target Name="BuildNonWindowsNative" Condition="'$(OS)' != 'Windows_NT'" BeforeTargets="Build">
-    <MakeDir Directories="..\WebWindow.Native\Win32\$(Configuration)" />
-    <Exec Condition="'$(IsMacOS)' == 'true'" WorkingDirectory="..\WebWindow.Native" Command="gcc -shared -lstdc++ -DOS_MAC -framework Cocoa -framework WebKit WebWindow.Mac.mm Exports.cpp WebWindow.Mac.AppDelegate.mm WebWindow.Mac.UiDelegate.mm WebWindow.Mac.UrlSchemeHandler.m -o x64/$(Configuration)/WebWindow.Native.dylib" />
-    <Exec Condition="'$(IsMacOS)' != 'true'" WorkingDirectory="..\WebWindow.Native" Command="gcc -std=c++11 -shared -DOS_LINUX Exports.cpp WebWindow.Linux.cpp -o x64/$(Configuration)/WebWindow.Native.so `pkg-config --cflags --libs gtk+-3.0 webkit2gtk-4.0` -fPIC" />
+    <MakeDir Directories="..\WebWindow.Native\$(Platform)\$(Configuration)" />
+    <Exec WorkingDirectory="..\WebWindow.Native" Command="gcc -std=c++11 -shared -DOS_LINUX Exports.cpp WebWindow.Linux.cpp -o $(Platform)/$(Configuration)/WebWindow.Native.so `pkg-config --cflags --libs gtk+-3.0 webkit2gtk-4.0` -fPIC" />
   </Target>
 
-  <ItemGroup>
-    <_NativeLibraries Include="$(NativeOutputDir)WebWindow.Native.dll" Condition="Exists('$(NativeOutputDir)WebWindow.Native.dll')" />
+  <ItemGroup Condition="'$(Platform)' != 'AnyCPU'">
+    <_NativeLibraries Include="$(NativeOutputDir)WebWindow.Native.dll" />
     <_NativeLibraries Include="$(NativeOutputDir)WebView2Loader.dll" Condition="Exists('$(NativeOutputDir)WebView2Loader.dll')" />
     <_NativeLibraries Include="$(NativeOutputDir)WebWindow.Native.so" Condition="Exists('$(NativeOutputDir)WebWindow.Native.so')" />
     <_NativeLibraries Include="$(NativeOutputDir)WebWindow.Native.dylib" Condition="Exists('$(NativeOutputDir)WebWindow.Native.dylib')" />

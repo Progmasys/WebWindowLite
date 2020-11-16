@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<package >
+    <metadata>
+        <id>WebWindowLite</id>
+        <version>1.1.0</version>
+        <title>.NET Core Webview library for Windows</title>
+        <authors>Junior</authors>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>.NET Core Webview library for Windows x86/x64 using Edge Chromium (Linux in the future)</description>
+        <tags>.NET Core, WebView2</tags>
+        <license type="expression">Apache-2.0</license>
+        <licenseUrl>https://licenses.nuget.org/Apache-2.0</licenseUrl>
+        <projectUrl>https://github.com/Progmasys/WebWindowLite</projectUrl>
+        <dependencies>
+            <group targetFramework=".NETStandard2.1" />
+        </dependencies>
+        <references>
+            <group targetFramework=".NETStandard2.1">
+                <reference file="WebWindow.dll" />
+                <reference file="WebWindow.pdb" />
+            </group>
+        </references>
+    </metadata>
+    <files>
+        <file src="src\WebWindow\bin\Win32\Release\netstandard2.1\win-x86\publish\WebView2Loader.dll" target="runtimes/win-x86/native" />
+        <file src="src\WebWindow\bin\Win32\Release\netstandard2.1\win-x86\publish\WebWindow.Native.dll" target="runtimes/win-x86/native" />
+        <file src="src\WebWindow\bin\Win32\Release\netstandard2.1\win-x86\publish\WebWindow.dll" target="runtimes/win-x86/lib/netstandard2.1"/>
+        <file src="src\WebWindow\bin\x64\Release\netstandard2.1\win-x64\publish\WebView2Loader.dll" target="runtimes/win-x64/native" />
+        <file src="src\WebWindow\bin\x64\Release\netstandard2.1\win-x64\publish\WebWindow.Native.dll" target="runtimes/win-x64/native" />
+        <file src="src\WebWindow\bin\x64\Release\netstandard2.1\win-x64\publish\WebWindow.dll" target="runtimes/win-x64/lib/netstandard2.1/"/>
+        <file src="src\WebWindow\bin\Release\netstandard2.1\publish\WebWindow.dll" target="ref/netstandard2.1/"/>
+        <file src="src\WebWindow\bin\Release\netstandard2.1\publish\WebWindow.pdb" target="ref/netstandard2.1/"/>
+        <file src="src\WebWindow\bin\Release\netstandard2.1\publish\WebWindow.dll" target="lib/netstandard2.1/"/>
+        <file src="src\WebWindow\bin\Release\netstandard2.1\publish\WebWindow.pdb" target="lib/netstandard2.1/"/>
+    </files>
+</package>

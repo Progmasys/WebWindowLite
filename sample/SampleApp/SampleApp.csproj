@@ -10,11 +10,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\WebWindow\WebWindow.csproj" />
+    <PackageReference Include="WebWindowLite" Version="1.1.0" />   
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="wwwroot\**">
+    <None Update="wwwroot\image.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wwwroot\index.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
